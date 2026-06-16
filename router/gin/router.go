@@ -132,20 +132,39 @@ func (r ginRouter) registerEndpointsAndMiddlewares(cfg config.ServiceConfig) {
 	}
 }
 
+func isWebSocketEndpoint(e *config.EndpointConfig) bool {
+	if e == nil {
+		return false
+	}
+	_, ok := e.ExtraConfig["websocket"]
+	return ok
+}
+
 func (r ginRouter) registerVeloneticsEndpoints(rg *gin.RouterGroup, cfg config.ServiceConfig) {
 	proxyBuildFailedHandler := func(c *gin.Context) {
 		c.AbortWithStatus(http.StatusInternalServerError)
 	}
 	// build and register the pipes and endpoints sequentially
 	for _, c := range cfg.Endpoints {
-		proxyStack, err := r.cfg.ProxyFactory.New(c)
-		if err != nil {
-			r.cfg.Logger.Error(logPrefix, "Calling the ProxyFactory", err.Error())
-			r.registerVeloneticsEndpoint(rg, c.Method, c,
-				proxyBuildFailedHandler, 1)
-			continue
+		method := c.Method
+		if isWebSocketEndpoint(c) {
+			method = http.MethodGet
 		}
-		r.registerVeloneticsEndpoint(rg, c.Method, c, r.cfg.HandlerFactory(c, proxyStack), len(c.Backend))
+
+		var proxyStack proxy.Proxy
+		var err error
+		if isWebSocketEndpoint(c) {
+			proxyStack = proxy.NoopProxy
+		} else {
+			proxyStack, err = r.cfg.ProxyFactory.New(c)
+			if err != nil {
+				r.cfg.Logger.Error(logPrefix, "Calling the ProxyFactory", err.Error())
+				r.registerVeloneticsEndpoint(rg, method, c,
+					proxyBuildFailedHandler, 1)
+				continue
+			}
+		}
+		r.registerVeloneticsEndpoint(rg, method, c, r.cfg.HandlerFactory(c, proxyStack), len(c.Backend))
 	}
 }
 
