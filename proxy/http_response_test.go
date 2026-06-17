@@ -26,8 +26,8 @@ func TestNopHTTPResponseParser(t *testing.T) {
 		t.Error(err.Error())
 		return
 	}
-	if !result.IsComplete {
-		t.Error("unexpected result")
+	if result.IsComplete {
+		t.Error("no-op streaming responses must be marked incomplete")
 	}
 	if len(result.Data) != 0 {
 		t.Error("unexpected result")

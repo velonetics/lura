@@ -4,7 +4,6 @@ package mux
 
 import (
 	"encoding/json"
-	"io"
 	"net/http"
 	"sync"
 
@@ -137,5 +136,5 @@ func noopRender(w http.ResponseWriter, response *proxy.Response) {
 	if response.Io == nil {
 		return
 	}
-	io.Copy(w, response.Io)
+	proxy.StreamCopy(w, response.Io)
 }

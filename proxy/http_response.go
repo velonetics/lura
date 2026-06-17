@@ -63,7 +63,7 @@ func DefaultHTTPResponseParserFactory(cfg HTTPResponseParserConfig) HTTPResponse
 func NoOpHTTPResponseParser(ctx context.Context, resp *http.Response) (*Response, error) {
 	return &Response{
 		Data:       map[string]interface{}{},
-		IsComplete: true,
+		IsComplete: false,
 		Io:         NewReadCloserWrapper(ctx, resp.Body),
 		Metadata: Metadata{
 			StatusCode: resp.StatusCode,

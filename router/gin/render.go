@@ -3,7 +3,6 @@
 package gin
 
 import (
-	"io"
 	"net/http"
 	"sync"
 
@@ -161,7 +160,7 @@ func noopRender(c *gin.Context, response *proxy.Response) {
 	if response.Io == nil {
 		return
 	}
-	io.Copy(c.Writer, response.Io)
+	proxy.StreamCopy(c.Writer, response.Io)
 }
 
 var emptyResponse = gin.H{}
