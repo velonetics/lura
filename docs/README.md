@@ -6,7 +6,7 @@
 
 Visit the [framework overview](/docs/OVERVIEW.md) for details about the components of the Lura project.
 
-A good example about how to use it can be found in the [Velonetics CE](https://github.com/velonetics/velonetics-ce)
+A good example about how to use it can be found in the [Pucora CE](https://github.com/pucora/velonetics-ce)
 API Gateway project.
 
 ## Configuration file

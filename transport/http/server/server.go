@@ -17,9 +17,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/velonetics/lura/v2/config"
-	"github.com/velonetics/lura/v2/core"
-	"github.com/velonetics/lura/v2/logging"
+	"github.com/pucora/lura/v2/config"
+	"github.com/pucora/lura/v2/core"
+	"github.com/pucora/lura/v2/logging"
 	"golang.org/x/net/http2"
 	"golang.org/x/net/http2/h2c"
 )
@@ -44,11 +44,11 @@ const (
 
 var (
 	// CompleteResponseHeaderName is the header to flag incomplete responses to the client
-	CompleteResponseHeaderName = "X-Velonetics-Completed"
+	CompleteResponseHeaderName = "X-Pucora-Completed"
 	// HeadersToSend are the headers to pass from the router request to the proxy
 	HeadersToSend = []string{"Content-Type"}
 	// UserAgentHeaderValue is the value of the User-Agent header to add to the proxy request
-	UserAgentHeaderValue = []string{core.VeloneticsUserAgent}
+	UserAgentHeaderValue = []string{core.PucoraUserAgent}
 
 	// ErrInternalError is the error returned by the router when something went wrong
 	ErrInternalError = errors.New("internal server error")

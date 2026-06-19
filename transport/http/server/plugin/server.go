@@ -6,11 +6,11 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/velonetics/lura/v2/config"
-	"github.com/velonetics/lura/v2/logging"
+	"github.com/pucora/lura/v2/config"
+	"github.com/pucora/lura/v2/logging"
 )
 
-const Namespace = "github_com/velonetics/velonetics/transport/http/server/handler"
+const Namespace = "github_com/pucora/pucora/transport/http/server/handler"
 const logPrefix = "[PLUGIN: Server]"
 
 type RunServer func(context.Context, config.ServiceConfig, http.Handler) error

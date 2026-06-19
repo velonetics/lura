@@ -2,14 +2,14 @@
 
 # The Lura Project framework
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/velonetics/lura/v2)](https://goreportcard.com/report/github.com/velonetics/lura/v2)
-[![GoDoc](https://godoc.org/github.com/velonetics/lura/v2?status.svg)](https://godoc.org/github.com/velonetics/lura/v2)
+[![Go Report Card](https://goreportcard.com/badge/github.com/pucora/lura/v2)](https://goreportcard.com/report/github.com/pucora/lura/v2)
+[![GoDoc](https://godoc.org/github.com/pucora/lura/v2?status.svg)](https://godoc.org/github.com/pucora/lura/v2)
 ![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/3151/badge)
 [![Slack Widget](https://img.shields.io/badge/join-us%20on%20slack-gray.svg?longCache=true&logo=slack&colorB=red)](https://gophers.slack.com/messages/lura)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fluraproject%2Flura.svg?type=shield&issueType=license)](https://app.fossa.com/projects/git%2Bgithub.com%2Fluraproject%2Flura%2Fv2?ref=badge_shield&issueType=license)
 
 
-An open framework to assemble ultra performance API Gateways with middlewares; formerly known as _Velonetics framework_, and core service of the [Velonetics API Gateway](http://velonetics.io).
+An open framework to assemble ultra performance API Gateways with middlewares; formerly known as _Pucora framework_, and core service of the [Pucora API Gateway](http://pucora.io).
 
 ## Motivation
 
@@ -48,11 +48,11 @@ The source code for the [Lura project](https://luraproject.org) framework. It is
 
 Use this repository if you want to **build from source your API Gateway** or if you want to **reuse the components in another application**.
 
-If you need a fully functional API Gateway you can [download the Velonetics binary for your architecture](http://velonetics.io/download) or [build it yourself](https://github.com/velonetics/velonetics-ce).
+If you need a fully functional API Gateway you can [download the Pucora binary for your architecture](http://pucora.io/download) or [build it yourself](https://github.com/pucora/velonetics-ce).
 
 
 ## Library Usage
-The Lura project is presented as a **Go library** that you can include in your own Go application to build a powerful proxy or API gateway. For a complete example, check the [Velonetics CE repository](https://github.com/velonetics/velonetics-ce).
+The Lura project is presented as a **Go library** that you can include in your own Go application to build a powerful proxy or API gateway. For a complete example, check the [Pucora CE repository](https://github.com/pucora/velonetics-ce).
 
 Of course, you will need [Go installed](https://golang.org/doc/install) in your system to compile the code.
 
@@ -66,10 +66,10 @@ A ready to use example:
         "log"
         "os"
 
-        "github.com/velonetics/lura/config"
-        "github.com/velonetics/lura/logging"
-        "github.com/velonetics/lura/proxy"
-        "github.com/velonetics/lura/router/gin"
+        "github.com/pucora/lura/config"
+        "github.com/pucora/lura/logging"
+        "github.com/pucora/lura/proxy"
+        "github.com/pucora/lura/router/gin"
     )
 
     func main() {

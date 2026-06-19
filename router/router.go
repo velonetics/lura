@@ -8,7 +8,7 @@ package router
 import (
 	"context"
 
-	"github.com/velonetics/lura/v2/config"
+	"github.com/pucora/lura/v2/config"
 )
 
 // Router sets up the public layer exposed to the users

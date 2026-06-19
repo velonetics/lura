@@ -11,11 +11,11 @@ import (
 	gorilla "github.com/gorilla/mux"
 	"github.com/urfave/negroni/v2"
 
-	"github.com/velonetics/lura/v2/logging"
-	"github.com/velonetics/lura/v2/proxy"
-	"github.com/velonetics/lura/v2/router"
-	luragorilla "github.com/velonetics/lura/v2/router/gorilla"
-	"github.com/velonetics/lura/v2/router/mux"
+	"github.com/pucora/lura/v2/logging"
+	"github.com/pucora/lura/v2/proxy"
+	"github.com/pucora/lura/v2/router"
+	luragorilla "github.com/pucora/lura/v2/router/gorilla"
+	"github.com/pucora/lura/v2/router/mux"
 )
 
 // DefaultFactory returns a net/http mux router factory with the injected proxy factory and logger

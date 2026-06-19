@@ -20,7 +20,7 @@ labels:
           - It's unrelated to the project (e.g., related to one of its libraries)
           - It does not follow the technical philosophy of the project
           - Violates our [Code of Conduct](https://lfprojects.org/policies/code-of-conduct/)
-          - It's about Velonetics functionalities (which uses and mantain Lura, but is not part of the Linux Foundation)
+          - It's about Pucora functionalities (which uses and mantain Lura, but is not part of the Linux Foundation)
 
           You can still make an edit or leave additional comments that lead to reopening this issue.
         action: close

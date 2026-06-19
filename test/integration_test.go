@@ -24,15 +24,15 @@ import (
 	ginlib "github.com/gin-gonic/gin"
 	"github.com/urfave/negroni/v2"
 
-	"github.com/velonetics/lura/v2/config"
-	"github.com/velonetics/lura/v2/logging"
-	"github.com/velonetics/lura/v2/proxy"
-	"github.com/velonetics/lura/v2/router/chi"
-	"github.com/velonetics/lura/v2/router/gin"
-	"github.com/velonetics/lura/v2/router/gorilla"
-	"github.com/velonetics/lura/v2/router/httptreemux"
-	luranegroni "github.com/velonetics/lura/v2/router/negroni"
-	"github.com/velonetics/lura/v2/transport/http/server"
+	"github.com/pucora/lura/v2/config"
+	"github.com/pucora/lura/v2/logging"
+	"github.com/pucora/lura/v2/proxy"
+	"github.com/pucora/lura/v2/router/chi"
+	"github.com/pucora/lura/v2/router/gin"
+	"github.com/pucora/lura/v2/router/gorilla"
+	"github.com/pucora/lura/v2/router/httptreemux"
+	luranegroni "github.com/pucora/lura/v2/router/negroni"
+	"github.com/pucora/lura/v2/transport/http/server"
 )
 
 var localhostIP string
@@ -60,12 +60,12 @@ func init() {
 	conn.Close()
 }
 
-func TestVelonetics_ginRouter(t *testing.T) {
+func TestPucora_ginRouter(t *testing.T) {
 	ginlib.SetMode(ginlib.TestMode)
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	testVelonetics(t, func(logger logging.Logger, cfg *config.ServiceConfig) {
+	testPucora(t, func(logger logging.Logger, cfg *config.ServiceConfig) {
 		if cfg.ExtraConfig == nil {
 			cfg.ExtraConfig = map[string]interface{}{}
 		}
@@ -96,50 +96,50 @@ func TestVelonetics_ginRouter(t *testing.T) {
 	})
 }
 
-func TestVelonetics_gorillaRouter(t *testing.T) {
+func TestPucora_gorillaRouter(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
 	config.RoutingPattern = config.BracketsRouterPatternBuilder
-	testVelonetics(t, func(logger logging.Logger, cfg *config.ServiceConfig) {
+	testPucora(t, func(logger logging.Logger, cfg *config.ServiceConfig) {
 		gorilla.DefaultFactory(proxy.DefaultFactory(logger), logger).NewWithContext(ctx).Run(*cfg)
 	})
 	config.RoutingPattern = config.ColonRouterPatternBuilder
 }
 
-func TestVelonetics_negroniRouter(t *testing.T) {
+func TestPucora_negroniRouter(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
 	config.RoutingPattern = config.BracketsRouterPatternBuilder
-	testVelonetics(t, func(logger logging.Logger, cfg *config.ServiceConfig) {
+	testPucora(t, func(logger logging.Logger, cfg *config.ServiceConfig) {
 		factory := luranegroni.DefaultFactory(proxy.DefaultFactory(logger), logger, []negroni.Handler{})
 		factory.NewWithContext(ctx).Run(*cfg)
 	})
 	config.RoutingPattern = config.ColonRouterPatternBuilder
 }
 
-func TestVelonetics_httptreemuxRouter(t *testing.T) {
+func TestPucora_httptreemuxRouter(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	testVelonetics(t, func(logger logging.Logger, cfg *config.ServiceConfig) {
+	testPucora(t, func(logger logging.Logger, cfg *config.ServiceConfig) {
 		httptreemux.DefaultFactory(proxy.DefaultFactory(logger), logger).NewWithContext(ctx).Run(*cfg)
 	})
 }
 
-func TestVelonetics_chiRouter(t *testing.T) {
+func TestPucora_chiRouter(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
 	config.RoutingPattern = config.BracketsRouterPatternBuilder
-	testVelonetics(t, func(logger logging.Logger, cfg *config.ServiceConfig) {
+	testPucora(t, func(logger logging.Logger, cfg *config.ServiceConfig) {
 		chi.DefaultFactory(proxy.DefaultFactory(logger), logger).NewWithContext(ctx).Run(*cfg)
 	})
 	config.RoutingPattern = config.ColonRouterPatternBuilder
 }
 
-func testVelonetics(t *testing.T, runRouter func(logging.Logger, *config.ServiceConfig)) {
+func testPucora(t *testing.T, runRouter func(logging.Logger, *config.ServiceConfig)) {
 	cfg, err := setupBackend(t)
 	if err != nil {
 		t.Error(err)
@@ -153,14 +153,14 @@ func testVelonetics(t *testing.T, runRouter func(logging.Logger, *config.Service
 
 	defaultHeaders := map[string]string{
 		"Content-Type":        "application/json",
-		"X-Velonetics-Completed": "true",
-		"X-Velonetics":           "Version undefined",
+		"X-Pucora-Completed": "true",
+		"X-Pucora":           "Version undefined",
 	}
 
 	incompleteHeader := map[string]string{
 		"Content-Type":        "application/json",
-		"X-Velonetics-Completed": "false",
-		"X-Velonetics":           "Version undefined",
+		"X-Pucora-Completed": "false",
+		"X-Pucora":           "Version undefined",
 	}
 
 	for _, tc := range []struct {
@@ -246,28 +246,28 @@ func testVelonetics(t *testing.T, runRouter func(logging.Logger, *config.Service
 			url:        "/querystring-params-test/no-params?a=1&b=2&c=3",
 			headers:    map[string]string{},
 			expHeaders: defaultHeaders,
-			expBody:    fmt.Sprintf(`{"headers":{"Accept-Encoding":["gzip"],"User-Agent":["Velonetics Version undefined"],"X-Forwarded-Host":["localhost:%d"]},"path":"/no-params","query":{}}`, cfg.Port),
+			expBody:    fmt.Sprintf(`{"headers":{"Accept-Encoding":["gzip"],"User-Agent":["Pucora Version undefined"],"X-Forwarded-Host":["localhost:%d"]},"path":"/no-params","query":{}}`, cfg.Port),
 		},
 		{
 			name:       "querystring-params-optional-query-params",
 			url:        "/querystring-params-test/query-params?a=1&b=2&c=3",
 			headers:    map[string]string{},
 			expHeaders: defaultHeaders,
-			expBody:    fmt.Sprintf(`{"headers":{"Accept-Encoding":["gzip"],"User-Agent":["Velonetics Version undefined"],"X-Forwarded-Host":["localhost:%d"]},"path":"/query-params","query":{"a":["1"],"b":["2"]}}`, cfg.Port),
+			expBody:    fmt.Sprintf(`{"headers":{"Accept-Encoding":["gzip"],"User-Agent":["Pucora Version undefined"],"X-Forwarded-Host":["localhost:%d"]},"path":"/query-params","query":{"a":["1"],"b":["2"]}}`, cfg.Port),
 		},
 		{
 			name:       "querystring-params-mandatory-query-params",
 			url:        "/querystring-params-test/url-params/some?a=1&b=2&c=3",
 			headers:    map[string]string{},
 			expHeaders: defaultHeaders,
-			expBody:    fmt.Sprintf(`{"headers":{"Accept-Encoding":["gzip"],"User-Agent":["Velonetics Version undefined"],"X-Forwarded-Host":["localhost:%d"]},"path":"/url-params","query":{"p":["some"]}}`, cfg.Port),
+			expBody:    fmt.Sprintf(`{"headers":{"Accept-Encoding":["gzip"],"User-Agent":["Pucora Version undefined"],"X-Forwarded-Host":["localhost:%d"]},"path":"/url-params","query":{"p":["some"]}}`, cfg.Port),
 		},
 		{
 			name:       "querystring-params-all",
 			url:        "/querystring-params-test/all-params?a=1&b=2&c=3",
 			headers:    map[string]string{},
 			expHeaders: defaultHeaders,
-			expBody:    fmt.Sprintf(`{"headers":{"Accept-Encoding":["gzip"],"User-Agent":["Velonetics Version undefined"],"X-Forwarded-Host":["localhost:%d"]},"path":"/all-params","query":{"a":["1"],"b":["2"],"c":["3"]}}`, cfg.Port),
+			expBody:    fmt.Sprintf(`{"headers":{"Accept-Encoding":["gzip"],"User-Agent":["Pucora Version undefined"],"X-Forwarded-Host":["localhost:%d"]},"path":"/all-params","query":{"a":["1"],"b":["2"],"c":["3"]}}`, cfg.Port),
 		},
 		{
 			name: "header-params-none",
@@ -277,7 +277,7 @@ func testVelonetics(t *testing.T, runRouter func(logging.Logger, *config.Service
 				"X-TEST-2": "none",
 			},
 			expHeaders: defaultHeaders,
-			expBody:    fmt.Sprintf(`{"headers":{"Accept-Encoding":["gzip"],"User-Agent":["Velonetics Version undefined"],"X-Forwarded-Host":["localhost:%d"]},"path":"/no-params","query":{}}`, cfg.Port),
+			expBody:    fmt.Sprintf(`{"headers":{"Accept-Encoding":["gzip"],"User-Agent":["Pucora Version undefined"],"X-Forwarded-Host":["localhost:%d"]},"path":"/no-params","query":{}}`, cfg.Port),
 		},
 		{
 			name: "header-params-filter",
@@ -287,7 +287,7 @@ func testVelonetics(t *testing.T, runRouter func(logging.Logger, *config.Service
 				"X-TEST-2": "none",
 			},
 			expHeaders: defaultHeaders,
-			expBody:    fmt.Sprintf(`{"headers":{"Accept-Encoding":["gzip"],"User-Agent":["Velonetics Version undefined"],"X-Forwarded-Host":["localhost:%d"],"X-Test-1":["some"]},"path":"/filter-params","query":{}}`, cfg.Port),
+			expBody:    fmt.Sprintf(`{"headers":{"Accept-Encoding":["gzip"],"User-Agent":["Pucora Version undefined"],"X-Forwarded-Host":["localhost:%d"],"X-Test-1":["some"]},"path":"/filter-params","query":{}}`, cfg.Port),
 		},
 		{
 			name: "header-params-all",
@@ -295,10 +295,10 @@ func testVelonetics(t *testing.T, runRouter func(logging.Logger, *config.Service
 			headers: map[string]string{
 				"x-Test-1":   "some",
 				"X-TEST-2":   "none",
-				"User-Agent": "Velonetics Test",
+				"User-Agent": "Pucora Test",
 			},
 			expHeaders: defaultHeaders,
-			expBody:    fmt.Sprintf(`{"headers":{"Accept-Encoding":["gzip"],"User-Agent":["Velonetics Test"],"X-Forwarded-Host":["localhost:%d"],"X-Forwarded-Via":["Velonetics Version undefined"],"X-Test-1":["some"],"X-Test-2":["none"]},"path":"/all-params","query":{}}`, cfg.Port),
+			expBody:    fmt.Sprintf(`{"headers":{"Accept-Encoding":["gzip"],"User-Agent":["Pucora Test"],"X-Forwarded-Host":["localhost:%d"],"X-Forwarded-Via":["Pucora Version undefined"],"X-Test-1":["some"],"X-Test-2":["none"]},"path":"/all-params","query":{}}`, cfg.Port),
 		},
 		{
 			name:       "sequential ok",
@@ -310,8 +310,8 @@ func testVelonetics(t *testing.T, runRouter func(logging.Logger, *config.Service
 			name: "sequential ko first",
 			url:  "/sequential/ko/first/foo",
 			expHeaders: map[string]string{
-				"X-Velonetics-Completed": "false",
-				"X-Velonetics":           "Version undefined",
+				"X-Pucora-Completed": "false",
+				"X-Pucora":           "Version undefined",
 			},
 			expStatusCode: 500,
 		},
@@ -352,7 +352,7 @@ func testVelonetics(t *testing.T, runRouter func(logging.Logger, *config.Service
 				"x-forwarded-for": "123.45.67.89",
 			},
 			expHeaders: defaultHeaders,
-			expBody:    fmt.Sprintf(`{"headers":{"Accept-Encoding":["gzip"],"User-Agent":["Velonetics Version undefined"],"X-Forwarded-For":["123.45.67.89"],"X-Forwarded-Host":["localhost:%d"]}}`, cfg.Port),
+			expBody:    fmt.Sprintf(`{"headers":{"Accept-Encoding":["gzip"],"User-Agent":["Pucora Version undefined"],"X-Forwarded-For":["123.45.67.89"],"X-Forwarded-Host":["localhost:%d"]}}`, cfg.Port),
 		},
 		{
 			method:     "PUT",
@@ -385,7 +385,7 @@ func testVelonetics(t *testing.T, runRouter func(logging.Logger, *config.Service
 			body:          `{"foo":"bar"}`,
 			expStatusCode: 200,
 			expHeaders:    defaultHeaders,
-			expBody:       fmt.Sprintf(`{"first":{"body":"{\"foo\":\"bar\"}","headers":{"Accept-Encoding":["gzip"],"User-Agent":["Velonetics Version undefined"],"X-Forwarded-For":["`+localhostIP+`"],"X-Forwarded-Host":["localhost:%d"]},"method":"POST","url":"/provider/foo"},"second":{"body":"{\"foo\":\"bar\"}","headers":{"Accept-Encoding":["gzip"],"User-Agent":["Velonetics Version undefined"],"X-Forwarded-For":["`+localhostIP+`"],"X-Forwarded-Host":["localhost:%d"]},"method":"POST","url":"/recipient/foo"}}`, cfg.Port, cfg.Port),
+			expBody:       fmt.Sprintf(`{"first":{"body":"{\"foo\":\"bar\"}","headers":{"Accept-Encoding":["gzip"],"User-Agent":["Pucora Version undefined"],"X-Forwarded-For":["`+localhostIP+`"],"X-Forwarded-Host":["localhost:%d"]},"method":"POST","url":"/provider/foo"},"second":{"body":"{\"foo\":\"bar\"}","headers":{"Accept-Encoding":["gzip"],"User-Agent":["Pucora Version undefined"],"X-Forwarded-For":["`+localhostIP+`"],"X-Forwarded-Host":["localhost:%d"]},"method":"POST","url":"/recipient/foo"}}`, cfg.Port, cfg.Port),
 		},
 		{
 			method:        "POST",
@@ -394,7 +394,7 @@ func testVelonetics(t *testing.T, runRouter func(logging.Logger, *config.Service
 			body:          `{"foo":"bar"}`,
 			expStatusCode: 200,
 			expHeaders:    defaultHeaders,
-			expBody:       fmt.Sprintf(`{"first":{"path":"/provider/foo","random":42},"second":{"body":"{\"foo\":\"bar\"}","headers":{"Accept-Encoding":["gzip"],"User-Agent":["Velonetics Version undefined"],"X-Forwarded-For":["`+localhostIP+`"],"X-Forwarded-Host":["localhost:%d"]},"method":"POST","url":"/recipient/42"},"third":{"body":"{\"foo\":\"bar\"}","headers":{"Accept-Encoding":["gzip"],"User-Agent":["Velonetics Version undefined"],"X-Forwarded-For":["`+localhostIP+`"],"X-Forwarded-Host":["localhost:%d"]},"method":"POST","url":"/recipient/42"}}`, cfg.Port, cfg.Port),
+			expBody:       fmt.Sprintf(`{"first":{"path":"/provider/foo","random":42},"second":{"body":"{\"foo\":\"bar\"}","headers":{"Accept-Encoding":["gzip"],"User-Agent":["Pucora Version undefined"],"X-Forwarded-For":["`+localhostIP+`"],"X-Forwarded-Host":["localhost:%d"]},"method":"POST","url":"/recipient/42"},"third":{"body":"{\"foo\":\"bar\"}","headers":{"Accept-Encoding":["gzip"],"User-Agent":["Pucora Version undefined"],"X-Forwarded-For":["`+localhostIP+`"],"X-Forwarded-Host":["localhost:%d"]},"method":"POST","url":"/recipient/42"}}`, cfg.Port, cfg.Port),
 		},
 	} {
 		tc := tc

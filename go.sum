@@ -76,8 +76,8 @@ github.com/urfave/negroni/v2 v2.0.2 h1:27gJcVxYJ2a/ytEoCHoJ7ybvyhymV4cAhGuMxkyCs
 github.com/urfave/negroni/v2 v2.0.2/go.mod h1:SjdApKzYrObukpN/NnlejbQiZWIUjfDFzQltScGYigI=
 github.com/valyala/fastrand v1.1.0 h1:f+5HkLW4rsgzdNoleUOB69hyT9IlD2ZQh9GyDMfb5G8=
 github.com/valyala/fastrand v1.1.0/go.mod h1:HWqCzkrkg6QXT8V2EXWvXCoow7vLwOFN002oeRzjapQ=
-github.com/velonetics/flatmap v1.0.0 h1:4CPSUHymeYkQ+CQsLMK6dckO8m/R2cyCAmEI1wCBsV8=
-github.com/velonetics/flatmap v1.0.0/go.mod h1:sdiHe7b6GlhtUGXOEWMlYB4uLPUCbEQmPy7PV8xmHPo=
+github.com/pucora/flatmap v1.0.0 h1:4CPSUHymeYkQ+CQsLMK6dckO8m/R2cyCAmEI1wCBsV8=
+github.com/pucora/flatmap v1.0.0/go.mod h1:sdiHe7b6GlhtUGXOEWMlYB4uLPUCbEQmPy7PV8xmHPo=
 go.mongodb.org/mongo-driver/v2 v2.5.0 h1:yXUhImUjjAInNcpTcAlPHiT7bIXhshCTL3jVBkF3xaE=
 go.mongodb.org/mongo-driver/v2 v2.5.0/go.mod h1:yOI9kBsufol30iFsl1slpdq1I0eHPzybRWdyYUs8K/0=
 go.uber.org/mock v0.6.0 h1:hyF9dfmbgIX5EfOdasqLsWD6xqpNZlXblLB/Dbnwv3Y=

@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/velonetics/lura/v2/logging"
+	"github.com/pucora/lura/v2/logging"
 )
 
 // NewLoggingMiddleware creates proxy middleware for logging requests and responses

@@ -11,18 +11,18 @@ import (
 	"plugin"
 	"strings"
 
-	"github.com/velonetics/lura/v2/logging"
-	luraplugin "github.com/velonetics/lura/v2/plugin"
-	"github.com/velonetics/lura/v2/register"
+	"github.com/pucora/lura/v2/logging"
+	luraplugin "github.com/pucora/lura/v2/plugin"
+	"github.com/pucora/lura/v2/register"
 )
 
 const (
 	// Namespace is the namespace for the extra_config section
-	Namespace = "github.com/velonetics/velonetics/proxy/plugin"
+	Namespace = "github.com/pucora/pucora/proxy/plugin"
 	// requestNamespace is the internal namespace for the register to be used with request modifiers
-	requestNamespace = "github.com/velonetics/velonetics/proxy/plugin/request"
+	requestNamespace = "github.com/pucora/pucora/proxy/plugin/request"
 	// responseNamespace is the internal namespace for the register to be used with response modifiers
-	responseNamespace = "github.com/velonetics/velonetics/proxy/plugin/response"
+	responseNamespace = "github.com/pucora/pucora/proxy/plugin/response"
 )
 
 var modifierRegister = register.New()

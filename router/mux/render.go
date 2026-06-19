@@ -7,9 +7,9 @@ import (
 	"net/http"
 	"sync"
 
-	"github.com/velonetics/lura/v2/config"
-	"github.com/velonetics/lura/v2/encoding"
-	"github.com/velonetics/lura/v2/proxy"
+	"github.com/pucora/lura/v2/config"
+	"github.com/pucora/lura/v2/encoding"
+	"github.com/pucora/lura/v2/proxy"
 )
 
 // Render defines the signature of the functions to be use for the final response

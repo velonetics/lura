@@ -10,11 +10,11 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/velonetics/lura/v2/config"
+	"github.com/pucora/lura/v2/config"
 )
 
 // Namespace to be used in extra config
-const Namespace = "github.com/velonetics/velonetics/http"
+const Namespace = "github.com/pucora/pucora/http"
 
 // ErrInvalidStatusCode is the error returned by the http proxy when the received status code
 // is not a 200 nor a 201

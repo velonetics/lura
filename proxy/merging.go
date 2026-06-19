@@ -12,8 +12,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/velonetics/lura/v2/config"
-	"github.com/velonetics/lura/v2/logging"
+	"github.com/pucora/lura/v2/config"
+	"github.com/pucora/lura/v2/logging"
 )
 
 // NewMergeDataMiddleware creates proxy middleware for merging responses from several backends

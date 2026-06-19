@@ -8,12 +8,12 @@ import (
 	"net/http"
 	"net/http/httptest"
 
-	"github.com/velonetics/lura/v2/config"
-	"github.com/velonetics/lura/v2/logging"
-	"github.com/velonetics/lura/v2/transport/http/client"
+	"github.com/pucora/lura/v2/config"
+	"github.com/pucora/lura/v2/logging"
+	"github.com/pucora/lura/v2/transport/http/client"
 )
 
-const Namespace = "github.com/velonetics/velonetics/transport/http/client/executor"
+const Namespace = "github.com/pucora/pucora/transport/http/client/executor"
 
 func HTTPRequestExecutor(
 	logger logging.Logger,

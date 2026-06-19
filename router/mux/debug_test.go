@@ -9,7 +9,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/velonetics/lura/v2/logging"
+	"github.com/pucora/lura/v2/logging"
 )
 
 func TestDebugHandler(t *testing.T) {
@@ -44,8 +44,8 @@ func TestDebugHandler(t *testing.T) {
 	if w.Result().Header.Get("Content-Type") != "application/json" {
 		t.Error("Content-Type error:", w.Result().Header.Get("Content-Type"))
 	}
-	if w.Result().Header.Get("X-Velonetics") != "" {
-		t.Error("X-Velonetics error:", w.Result().Header.Get("X-Velonetics"))
+	if w.Result().Header.Get("X-Pucora") != "" {
+		t.Error("X-Pucora error:", w.Result().Header.Get("X-Pucora"))
 	}
 	if w.Result().StatusCode != http.StatusOK {
 		t.Error("Unexpected status code:", w.Result().StatusCode)

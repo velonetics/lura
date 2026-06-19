@@ -18,10 +18,10 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/velonetics/lura/v2/config"
-	"github.com/velonetics/lura/v2/logging"
-	"github.com/velonetics/lura/v2/proxy"
-	"github.com/velonetics/lura/v2/transport/http/server"
+	"github.com/pucora/lura/v2/config"
+	"github.com/pucora/lura/v2/logging"
+	"github.com/pucora/lura/v2/proxy"
+	"github.com/pucora/lura/v2/transport/http/server"
 )
 
 func TestDefaultFactory_ok(t *testing.T) {
@@ -121,8 +121,8 @@ func TestDefaultFactory_ok(t *testing.T) {
 		if resp.Header.Get("Content-Type") != "application/json; charset=utf-8" {
 			t.Error("Content-Type error:", resp.Header.Get("Content-Type"))
 		}
-		if resp.Header.Get("X-Velonetics") != "Version undefined" {
-			t.Error("X-Velonetics error:", resp.Header.Get("X-Velonetics"))
+		if resp.Header.Get("X-Pucora") != "Version undefined" {
+			t.Error("X-Pucora error:", resp.Header.Get("X-Pucora"))
 		}
 		if resp.StatusCode != http.StatusOK {
 			t.Error("Unexpected status code:", resp.StatusCode)
@@ -260,8 +260,8 @@ func TestDefaultFactory_proxyFactoryCrash(t *testing.T) {
 	if resp.Header.Get("Content-Type") != "" {
 		t.Error(req.URL.String(), "Content-Type error:", resp.Header.Get("Content-Type"))
 	}
-	if resp.Header.Get("X-Velonetics") != "" {
-		t.Error(req.URL.String(), "X-Velonetics error:", resp.Header.Get("X-Velonetics"))
+	if resp.Header.Get("X-Pucora") != "" {
+		t.Error(req.URL.String(), "X-Pucora error:", resp.Header.Get("X-Pucora"))
 	}
 	if resp.StatusCode != http.StatusInternalServerError {
 		t.Error(req.URL.String(), "Unexpected status code:", resp.StatusCode)
@@ -324,8 +324,8 @@ func checkResponseIs404(t *testing.T, req *http.Request) {
 	if resp.Header.Get("Content-Type") != "text/plain" {
 		t.Error(req.URL.String(), "Content-Type error:", resp.Header.Get("Content-Type"))
 	}
-	if resp.Header.Get("X-Velonetics") != "" {
-		t.Error(req.URL.String(), "X-Velonetics error:", resp.Header.Get("X-Velonetics"))
+	if resp.Header.Get("X-Pucora") != "" {
+		t.Error(req.URL.String(), "X-Pucora error:", resp.Header.Get("X-Pucora"))
 	}
 	if resp.StatusCode != http.StatusNotFound {
 		t.Error(req.URL.String(), "Unexpected status code:", resp.StatusCode)

@@ -13,9 +13,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/velonetics/lura/v2/config"
-	"github.com/velonetics/lura/v2/logging"
-	"github.com/velonetics/lura/v2/sd"
+	"github.com/pucora/lura/v2/config"
+	"github.com/pucora/lura/v2/logging"
+	"github.com/pucora/lura/v2/sd"
 )
 
 func TestFactoryFunc(t *testing.T) {

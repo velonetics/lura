@@ -72,8 +72,8 @@ func echoRunTestRequest(t *testing.T, e *gin.Engine, body io.Reader, expected st
 	if w.Result().Header.Get("Content-Type") != "application/json; charset=utf-8" {
 		t.Error("Content-Type error:", w.Result().Header.Get("Content-Type"))
 	}
-	if w.Result().Header.Get("X-Velonetics") != "" {
-		t.Error("X-Velonetics error:", w.Result().Header.Get("X-Velonetics"))
+	if w.Result().Header.Get("X-Pucora") != "" {
+		t.Error("X-Pucora error:", w.Result().Header.Get("X-Pucora"))
 	}
 	if w.Result().StatusCode != http.StatusOK {
 		t.Error("Unexpected status code:", w.Result().StatusCode)

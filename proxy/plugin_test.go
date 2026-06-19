@@ -11,9 +11,9 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/velonetics/lura/v2/config"
-	"github.com/velonetics/lura/v2/logging"
-	"github.com/velonetics/lura/v2/proxy/plugin"
+	"github.com/pucora/lura/v2/config"
+	"github.com/pucora/lura/v2/logging"
+	"github.com/pucora/lura/v2/proxy/plugin"
 )
 
 func TestNewPluginMiddleware_logger(t *testing.T) {

@@ -11,9 +11,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/velonetics/lura/v2/config"
-	"github.com/velonetics/lura/v2/logging"
-	"github.com/velonetics/lura/v2/transport/http/client/graphql"
+	"github.com/pucora/lura/v2/config"
+	"github.com/pucora/lura/v2/logging"
+	"github.com/pucora/lura/v2/transport/http/client/graphql"
 )
 
 func graphqlBackend(extra map[string]interface{}, opts ...func(*config.Backend)) *config.Backend {

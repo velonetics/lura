@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/velonetics/lura/v2/encoding"
+	"github.com/pucora/lura/v2/encoding"
 )
 
 func baseStreamingService() *ServiceConfig {

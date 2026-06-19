@@ -11,8 +11,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/velonetics/lura/v2/config"
-	"github.com/velonetics/lura/v2/encoding"
+	"github.com/pucora/lura/v2/config"
+	"github.com/pucora/lura/v2/encoding"
 )
 
 type flushRecorder struct {

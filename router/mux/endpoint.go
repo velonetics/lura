@@ -10,10 +10,10 @@ import (
 	"net/textproto"
 	"strings"
 
-	"github.com/velonetics/lura/v2/config"
-	"github.com/velonetics/lura/v2/core"
-	"github.com/velonetics/lura/v2/proxy"
-	"github.com/velonetics/lura/v2/transport/http/server"
+	"github.com/pucora/lura/v2/config"
+	"github.com/pucora/lura/v2/core"
+	"github.com/pucora/lura/v2/proxy"
+	"github.com/pucora/lura/v2/transport/http/server"
 )
 
 const requestParamsAsterisk string = "*"
@@ -44,7 +44,7 @@ func CustomEndpointHandlerWithHTTPError(rb RequestBuilder, errF server.ToHTTPErr
 		method := strings.ToTitle(configuration.Method)
 
 		return func(w http.ResponseWriter, r *http.Request) {
-			w.Header().Set(core.VeloneticsHeaderName, core.VeloneticsHeaderValue)
+			w.Header().Set(core.PucoraHeaderName, core.PucoraHeaderValue)
 			if r.Method != method {
 				w.Header().Set(server.CompleteResponseHeaderName, server.HeaderIncompleteResponseValue)
 				http.Error(w, "", http.StatusMethodNotAllowed)
@@ -139,7 +139,7 @@ func NewRequestBuilder(paramExtractor ParamExtractor) RequestBuilder {
 		headers["X-Forwarded-For"] = []string{clientIP(r)}
 		headers["X-Forwarded-Host"] = []string{r.Host}
 		// if User-Agent is not forwarded using headersToSend, we set
-		// the Velonetics router User Agent value
+		// the Pucora router User Agent value
 		if _, ok := headers["User-Agent"]; !ok {
 			headers["User-Agent"] = server.UserAgentHeaderValue
 		} else {

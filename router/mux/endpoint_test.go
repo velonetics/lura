@@ -14,9 +14,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/velonetics/lura/v2/config"
-	"github.com/velonetics/lura/v2/proxy"
-	"github.com/velonetics/lura/v2/transport/http/server"
+	"github.com/pucora/lura/v2/config"
+	"github.com/pucora/lura/v2/proxy"
+	"github.com/pucora/lura/v2/transport/http/server"
 )
 
 func TestEndpointHandler_ok(t *testing.T) {
@@ -58,7 +58,7 @@ func TestEndpointHandler_okAllParams(t *testing.T) {
 		timeout:            10,
 		proxy:              p,
 		method:             "GET",
-		expectedBody:       `{"headers":{"Content-Type":["application/json"],"User-Agent":["Velonetics Version undefined"],"X-Forwarded-For":[""],"X-Forwarded-Host":["127.0.0.1:8081"]},"params":{},"query":{"a":["42"],"b":["1"],"c[]":["x","y"],"d":["1","2"]}}`,
+		expectedBody:       `{"headers":{"Content-Type":["application/json"],"User-Agent":["Pucora Version undefined"],"X-Forwarded-For":[""],"X-Forwarded-Host":["127.0.0.1:8081"]},"params":{},"query":{"a":["42"],"b":["1"],"c[]":["x","y"],"d":["1","2"]}}`,
 		expectedCache:      "public, max-age=21600",
 		expectedContent:    "application/json",
 		expectedStatusCode: http.StatusOK,
@@ -280,8 +280,8 @@ func (tc endpointHandlerTestCase) test(t *testing.T) {
 	if resp.Header.Get("Content-Type") != tc.expectedContent {
 		t.Error("Content-Type error:", resp.Header.Get("Content-Type"))
 	}
-	if resp.Header.Get("X-Velonetics") != "Version undefined" {
-		t.Error("X-Velonetics error:", resp.Header.Get("X-Velonetics"))
+	if resp.Header.Get("X-Pucora") != "Version undefined" {
+		t.Error("X-Pucora error:", resp.Header.Get("X-Pucora"))
 	}
 	if resp.StatusCode != tc.expectedStatusCode {
 		t.Error("Unexpected status code:", resp.StatusCode)

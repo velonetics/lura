@@ -11,11 +11,11 @@ import (
 	"strings"
 )
 
-// VeloneticsHeaderName is the name of the custom Velonetics response header.
-const VeloneticsHeaderName = "X-VELONETICS"
+// PucoraHeaderName is the name of the custom Pucora response header.
+const PucoraHeaderName = "X-PUCORA"
 
-// VeloneticsVersion is the version of the build.
-var VeloneticsVersion = "undefined"
+// PucoraVersion is the version of the build.
+var PucoraVersion = "undefined"
 
 // GoVersion is the version of the go compiler used at build time
 var GoVersion = strings.TrimPrefix(runtime.Version(), "go")
@@ -23,8 +23,8 @@ var GoVersion = strings.TrimPrefix(runtime.Version(), "go")
 // GlibcVersion is the version of the glibc used by CGO at build time
 var GlibcVersion = "undefined"
 
-// VeloneticsHeaderValue is the value of the custom Velonetics response header.
-var VeloneticsHeaderValue = fmt.Sprintf("Version %s", VeloneticsVersion)
+// PucoraHeaderValue is the value of the custom Pucora response header.
+var PucoraHeaderValue = fmt.Sprintf("Version %s", PucoraVersion)
 
-// VeloneticsUserAgent is the value of the user agent header sent to the backends.
-var VeloneticsUserAgent = fmt.Sprintf("Velonetics Version %s", VeloneticsVersion)
+// PucoraUserAgent is the value of the user agent header sent to the backends.
+var PucoraUserAgent = fmt.Sprintf("Pucora Version %s", PucoraVersion)

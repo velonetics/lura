@@ -10,11 +10,11 @@ import (
 
 	gorilla "github.com/gorilla/mux"
 
-	"github.com/velonetics/lura/v2/logging"
-	"github.com/velonetics/lura/v2/proxy"
-	"github.com/velonetics/lura/v2/router"
-	"github.com/velonetics/lura/v2/router/mux"
-	"github.com/velonetics/lura/v2/transport/http/server"
+	"github.com/pucora/lura/v2/logging"
+	"github.com/pucora/lura/v2/proxy"
+	"github.com/pucora/lura/v2/router"
+	"github.com/pucora/lura/v2/router/mux"
+	"github.com/pucora/lura/v2/transport/http/server"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
 )

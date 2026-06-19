@@ -9,11 +9,11 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/velonetics/lura/v2/config"
-	"github.com/velonetics/lura/v2/core"
-	"github.com/velonetics/lura/v2/logging"
-	"github.com/velonetics/lura/v2/proxy"
-	"github.com/velonetics/lura/v2/transport/http/server"
+	"github.com/pucora/lura/v2/config"
+	"github.com/pucora/lura/v2/core"
+	"github.com/pucora/lura/v2/logging"
+	"github.com/pucora/lura/v2/proxy"
+	"github.com/pucora/lura/v2/transport/http/server"
 )
 
 const requestParamsAsterisk string = "*"
@@ -54,7 +54,7 @@ func CustomErrorEndpointHandler(logger logging.Logger, errF server.ToHTTPError) 
 			}
 			defer cancel()
 
-			c.Header(core.VeloneticsHeaderName, core.VeloneticsHeaderValue)
+			c.Header(core.PucoraHeaderName, core.PucoraHeaderValue)
 
 			response, err := prxy(requestCtx, requestGenerator(c, configuration.QueryString))
 
@@ -156,7 +156,7 @@ func NewRequest(headersToSend []string) func(*gin.Context, []string) *proxy.Requ
 		headers["X-Forwarded-For"] = []string{c.ClientIP()}
 		headers["X-Forwarded-Host"] = []string{c.Request.Host}
 		// if User-Agent is not forwarded using headersToSend, we set
-		// the Velonetics router User Agent value
+		// the Pucora router User Agent value
 		if _, ok := headers["User-Agent"]; !ok {
 			headers["User-Agent"] = server.UserAgentHeaderValue
 		} else {

@@ -11,7 +11,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/velonetics/lura/v2/config"
+	"github.com/pucora/lura/v2/config"
 )
 
 func TestDetailedHTTPStatusHandler(t *testing.T) {

@@ -6,7 +6,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/velonetics/lura/v2/config"
+	"github.com/pucora/lura/v2/config"
 )
 
 func BenchmarkNewRequestBuilderMiddleware(b *testing.B) {

@@ -10,11 +10,11 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/velonetics/lura/v2/config"
-	"github.com/velonetics/lura/v2/logging"
-	"github.com/velonetics/lura/v2/proxy"
-	"github.com/velonetics/lura/v2/router"
-	"github.com/velonetics/lura/v2/transport/http/server"
+	"github.com/pucora/lura/v2/config"
+	"github.com/pucora/lura/v2/logging"
+	"github.com/pucora/lura/v2/proxy"
+	"github.com/pucora/lura/v2/router"
+	"github.com/pucora/lura/v2/transport/http/server"
 )
 
 // DefaultDebugPattern is the default pattern used to define the debug endpoint
@@ -134,7 +134,7 @@ func (r httpRouter) Run(cfg config.ServiceConfig) {
 
 	server.InitHTTPDefaultTransport(cfg)
 
-	r.registerVeloneticsEndpoints(cfg.Endpoints)
+	r.registerPucoraEndpoints(cfg.Endpoints)
 
 	if err := r.RunServer(r.ctx, cfg, r.handler()); err != nil {
 		r.cfg.Logger.Error(logPrefix, err.Error())
@@ -143,7 +143,7 @@ func (r httpRouter) Run(cfg config.ServiceConfig) {
 	r.cfg.Logger.Info(logPrefix, "Router execution ended")
 }
 
-func (r httpRouter) registerVeloneticsEndpoints(endpoints []*config.EndpointConfig) {
+func (r httpRouter) registerPucoraEndpoints(endpoints []*config.EndpointConfig) {
 	for _, c := range endpoints {
 		proxyStack, err := r.cfg.ProxyFactory.New(c)
 		if err != nil {
@@ -151,11 +151,11 @@ func (r httpRouter) registerVeloneticsEndpoints(endpoints []*config.EndpointConf
 			continue
 		}
 
-		r.registerVeloneticsEndpoint(c.Method, c, r.cfg.HandlerFactory(c, proxyStack), len(c.Backend))
+		r.registerPucoraEndpoint(c.Method, c, r.cfg.HandlerFactory(c, proxyStack), len(c.Backend))
 	}
 }
 
-func (r httpRouter) registerVeloneticsEndpoint(method string, endpoint *config.EndpointConfig, handler http.HandlerFunc, totBackends int) {
+func (r httpRouter) registerPucoraEndpoint(method string, endpoint *config.EndpointConfig, handler http.HandlerFunc, totBackends int) {
 	method = strings.ToTitle(method)
 	path := endpoint.Endpoint
 	if method != http.MethodGet && totBackends > 1 {

@@ -7,9 +7,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/velonetics/flatmap/tree"
-	"github.com/velonetics/lura/v2/config"
-	"github.com/velonetics/lura/v2/logging"
+	"github.com/pucora/flatmap/tree"
+	"github.com/pucora/lura/v2/config"
+	"github.com/pucora/lura/v2/logging"
 )
 
 // EntityFormatter formats the response data

@@ -8,9 +8,9 @@ import (
 	"io"
 	"net/url"
 
-	"github.com/velonetics/lura/v2/config"
-	"github.com/velonetics/lura/v2/logging"
-	"github.com/velonetics/lura/v2/proxy/plugin"
+	"github.com/pucora/lura/v2/config"
+	"github.com/pucora/lura/v2/logging"
+	"github.com/pucora/lura/v2/proxy/plugin"
 )
 
 // NewPluginMiddleware returns an endpoint middleware wrapped (if required) with the plugin middleware.

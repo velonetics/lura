@@ -12,8 +12,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/velonetics/lura/v2/config"
-	"github.com/velonetics/lura/v2/sd"
+	"github.com/pucora/lura/v2/config"
+	"github.com/pucora/lura/v2/sd"
 )
 
 // Namespace is the key for the dns sd module

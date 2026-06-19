@@ -6,8 +6,8 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/velonetics/lura/v2/config"
-	"github.com/velonetics/lura/v2/encoding"
+	"github.com/pucora/lura/v2/config"
+	"github.com/pucora/lura/v2/encoding"
 )
 
 // IsStreamingEndpoint reports whether the endpoint is configured for transparent

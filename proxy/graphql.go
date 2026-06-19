@@ -11,9 +11,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/velonetics/lura/v2/config"
-	"github.com/velonetics/lura/v2/logging"
-	"github.com/velonetics/lura/v2/transport/http/client/graphql"
+	"github.com/pucora/lura/v2/config"
+	"github.com/pucora/lura/v2/logging"
+	"github.com/pucora/lura/v2/transport/http/client/graphql"
 )
 
 // NewGraphQLMiddleware returns a middleware with or without the GraphQL

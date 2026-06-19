@@ -13,7 +13,7 @@ var (
 	hostPattern            = regexp.MustCompile(`(https?://)?([a-zA-Z0-9\._\-]+)(:[0-9]{2,6})?/?`)
 )
 
-// URIParser defines the interface for all the URI manipulation required by Velonetics
+// URIParser defines the interface for all the URI manipulation required by Pucora
 type URIParser interface {
 	CleanHosts([]string) []string
 	CleanHost(string) string

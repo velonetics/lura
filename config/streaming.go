@@ -8,15 +8,15 @@ import (
 	"strings"
 	"time"
 
-	"github.com/velonetics/lura/v2/encoding"
+	"github.com/pucora/lura/v2/encoding"
 )
 
 const (
-	luaProxyNamespace  = "github.com/velonetics/velonetics-lua/proxy"
-	luaRouterNamespace = "github.com/velonetics/velonetics-lua/router"
-	martianNamespace   = "github.com/velonetics/velonetics-martian"
-	httpcacheNamespace = "github.com/velonetics/velonetics-httpcache"
-	proxyNamespace     = "github.com/velonetics/velonetics/proxy"
+	luaProxyNamespace  = "github.com/pucora/velonetics-lua/proxy"
+	luaRouterNamespace = "github.com/pucora/velonetics-lua/router"
+	martianNamespace   = "github.com/pucora/velonetics-martian"
+	httpcacheNamespace = "github.com/pucora/velonetics-httpcache"
+	proxyNamespace     = "github.com/pucora/pucora/proxy"
 )
 
 var (

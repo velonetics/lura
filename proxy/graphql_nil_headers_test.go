@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/velonetics/lura/v2/logging"
+	"github.com/pucora/lura/v2/logging"
 )
 
 func TestGraphQLNilHeadersGET(t *testing.T) {

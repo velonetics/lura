@@ -8,7 +8,7 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/velonetics/lura/v2/encoding"
+	"github.com/pucora/lura/v2/encoding"
 )
 
 // HTTPResponseParser defines how the response is parsed from http.Response to Response object

@@ -12,12 +12,12 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-	"github.com/velonetics/lura/v2/config"
-	"github.com/velonetics/lura/v2/logging"
-	"github.com/velonetics/lura/v2/proxy"
-	"github.com/velonetics/lura/v2/router"
-	"github.com/velonetics/lura/v2/router/mux"
-	"github.com/velonetics/lura/v2/transport/http/server"
+	"github.com/pucora/lura/v2/config"
+	"github.com/pucora/lura/v2/logging"
+	"github.com/pucora/lura/v2/proxy"
+	"github.com/pucora/lura/v2/router"
+	"github.com/pucora/lura/v2/router/mux"
+	"github.com/pucora/lura/v2/transport/http/server"
 )
 
 // ChiDefaultDebugPattern is the default pattern used to define the debug endpoint
@@ -94,7 +94,7 @@ func (r chiRouter) Run(cfg config.ServiceConfig) {
 
 	server.InitHTTPDefaultTransport(cfg)
 
-	r.registerVeloneticsEndpoints(cfg.Endpoints)
+	r.registerPucoraEndpoints(cfg.Endpoints)
 
 	r.cfg.Engine.NotFound(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set(server.CompleteResponseHeaderName, server.HeaderIncompleteResponseValue)
@@ -117,7 +117,7 @@ func (r chiRouter) registerDebugEndpoints() {
 	r.cfg.Engine.Delete(r.cfg.DebugPattern, debugHandler)
 }
 
-func (r chiRouter) registerVeloneticsEndpoints(endpoints []*config.EndpointConfig) {
+func (r chiRouter) registerPucoraEndpoints(endpoints []*config.EndpointConfig) {
 	for _, c := range endpoints {
 		proxyStack, err := r.cfg.ProxyFactory.New(c)
 		if err != nil {
@@ -125,11 +125,11 @@ func (r chiRouter) registerVeloneticsEndpoints(endpoints []*config.EndpointConfi
 			continue
 		}
 
-		r.registerVeloneticsEndpoint(c.Method, c, r.cfg.HandlerFactory(c, proxyStack), len(c.Backend))
+		r.registerPucoraEndpoint(c.Method, c, r.cfg.HandlerFactory(c, proxyStack), len(c.Backend))
 	}
 }
 
-func (r chiRouter) registerVeloneticsEndpoint(method string, endpoint *config.EndpointConfig, handler http.HandlerFunc, totBackends int) {
+func (r chiRouter) registerPucoraEndpoint(method string, endpoint *config.EndpointConfig, handler http.HandlerFunc, totBackends int) {
 	method = strings.ToTitle(method)
 	path := endpoint.Endpoint
 

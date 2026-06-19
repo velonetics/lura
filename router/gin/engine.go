@@ -15,10 +15,10 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/velonetics/lura/v2/config"
-	"github.com/velonetics/lura/v2/core"
-	"github.com/velonetics/lura/v2/logging"
-	"github.com/velonetics/lura/v2/transport/http/server"
+	"github.com/pucora/lura/v2/config"
+	"github.com/pucora/lura/v2/core"
+	"github.com/pucora/lura/v2/logging"
+	"github.com/pucora/lura/v2/transport/http/server"
 )
 
 const Namespace = "github_com/luraproject/lura/router/gin"
@@ -79,7 +79,7 @@ func NewEngine(cfg config.ServiceConfig, opt EngineOptions) *gin.Engine {
 				returnErrorMsg = ginOptions.ReturnErrorMsg
 
 				if ginOptions.ObfuscateVersionHeader {
-					core.VeloneticsHeaderValue = "Version undefined"
+					core.PucoraHeaderValue = "Version undefined"
 				}
 			}
 		}

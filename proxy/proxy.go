@@ -10,12 +10,12 @@ import (
 	"errors"
 	"io"
 
-	"github.com/velonetics/lura/v2/config"
-	"github.com/velonetics/lura/v2/logging"
+	"github.com/pucora/lura/v2/config"
+	"github.com/pucora/lura/v2/logging"
 )
 
 // Namespace to be used in extra config
-const Namespace = "github.com/velonetics/velonetics/proxy"
+const Namespace = "github.com/pucora/pucora/proxy"
 
 // Metadata is the Metadata of the Response which contains Headers and StatusCode
 type Metadata struct {

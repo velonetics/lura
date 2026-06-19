@@ -14,9 +14,9 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/velonetics/lura/v2/config"
-	"github.com/velonetics/lura/v2/encoding"
-	"github.com/velonetics/lura/v2/proxy"
+	"github.com/pucora/lura/v2/config"
+	"github.com/pucora/lura/v2/encoding"
+	"github.com/pucora/lura/v2/proxy"
 )
 
 func TestRender_Negotiated_ok(t *testing.T) {
@@ -68,8 +68,8 @@ func TestRender_Negotiated_ok(t *testing.T) {
 		if w.Result().Header.Get("Content-Type") != testData[2] {
 			t.Error(testData[0], "Content-Type error:", w.Result().Header.Get("Content-Type"))
 		}
-		if w.Result().Header.Get("X-Velonetics") != "Version undefined" {
-			t.Error(testData[0], "X-Velonetics error:", w.Result().Header.Get("X-Velonetics"))
+		if w.Result().Header.Get("X-Pucora") != "Version undefined" {
+			t.Error(testData[0], "X-Pucora error:", w.Result().Header.Get("X-Pucora"))
 		}
 		if w.Result().StatusCode != http.StatusOK {
 			t.Error(testData[0], "Unexpected status code:", w.Result().StatusCode)
@@ -122,8 +122,8 @@ func TestRender_Negotiated_noData(t *testing.T) {
 		if w.Result().Header.Get("Content-Type") != testData[2] {
 			t.Error(testData[0], "Content-Type error:", w.Result().Header.Get("Content-Type"))
 		}
-		if w.Result().Header.Get("X-Velonetics") != "Version undefined" {
-			t.Error(testData[0], "X-Velonetics error:", w.Result().Header.Get("X-Velonetics"))
+		if w.Result().Header.Get("X-Pucora") != "Version undefined" {
+			t.Error(testData[0], "X-Pucora error:", w.Result().Header.Get("X-Pucora"))
 		}
 		if w.Result().StatusCode != http.StatusOK {
 			t.Error(testData[0], "Unexpected status code:", w.Result().StatusCode)
@@ -174,8 +174,8 @@ func TestRender_Negotiated_noResponse(t *testing.T) {
 		if w.Result().Header.Get("Content-Type") != testData[2] {
 			t.Error(testData[0], "Content-Type error:", w.Result().Header.Get("Content-Type"))
 		}
-		if w.Result().Header.Get("X-Velonetics") != "Version undefined" {
-			t.Error(testData[0], "X-Velonetics error:", w.Result().Header.Get("X-Velonetics"))
+		if w.Result().Header.Get("X-Pucora") != "Version undefined" {
+			t.Error(testData[0], "X-Pucora error:", w.Result().Header.Get("X-Pucora"))
 		}
 		if w.Result().StatusCode != http.StatusOK {
 			t.Error(testData[0], "Unexpected status code:", w.Result().StatusCode)
@@ -235,8 +235,8 @@ func TestRender_unknown(t *testing.T) {
 		if w.Result().Header.Get("Content-Type") != expectedHeader {
 			t.Error(testData[0], "Content-Type error:", w.Result().Header.Get("Content-Type"))
 		}
-		if w.Result().Header.Get("X-Velonetics") != "Version undefined" {
-			t.Error(testData[0], "X-Velonetics error:", w.Result().Header.Get("X-Velonetics"))
+		if w.Result().Header.Get("X-Pucora") != "Version undefined" {
+			t.Error(testData[0], "X-Pucora error:", w.Result().Header.Get("X-Pucora"))
 		}
 		if w.Result().StatusCode != http.StatusOK {
 			t.Error(testData[0], "Unexpected status code:", w.Result().StatusCode)
@@ -296,8 +296,8 @@ func TestRender_string(t *testing.T) {
 		if w.Result().Header.Get("Content-Type") != expectedHeader {
 			t.Error(testData[0], "Content-Type error:", w.Result().Header.Get("Content-Type"))
 		}
-		if w.Result().Header.Get("X-Velonetics") != "Version undefined" {
-			t.Error(testData[0], "X-Velonetics error:", w.Result().Header.Get("X-Velonetics"))
+		if w.Result().Header.Get("X-Pucora") != "Version undefined" {
+			t.Error(testData[0], "X-Pucora error:", w.Result().Header.Get("X-Pucora"))
 		}
 		if w.Result().StatusCode != http.StatusOK {
 			t.Error(testData[0], "Unexpected status code:", w.Result().StatusCode)
@@ -358,8 +358,8 @@ func TestRender_string_noData(t *testing.T) {
 		if w.Result().Header.Get("Content-Type") != expectedHeader {
 			t.Error(k, "Content-Type error:", w.Result().Header.Get("Content-Type"))
 		}
-		if w.Result().Header.Get("X-Velonetics") != "Version undefined" {
-			t.Error(k, "X-Velonetics error:", w.Result().Header.Get("X-Velonetics"))
+		if w.Result().Header.Get("X-Pucora") != "Version undefined" {
+			t.Error(k, "X-Pucora error:", w.Result().Header.Get("X-Pucora"))
 		}
 		if w.Result().StatusCode != http.StatusOK {
 			t.Error(k, "Unexpected status code:", w.Result().StatusCode)
@@ -441,8 +441,8 @@ func TestRender_noop(t *testing.T) {
 	if w.Result().Header.Get("Content-Type") != expectedHeader {
 		t.Error("Content-Type error:", w.Result().Header.Get("Content-Type"))
 	}
-	if w.Result().Header.Get("X-Velonetics") != "Version undefined" {
-		t.Error("X-Velonetics error:", w.Result().Header.Get("X-Velonetics"))
+	if w.Result().Header.Get("X-Pucora") != "Version undefined" {
+		t.Error("X-Pucora error:", w.Result().Header.Get("X-Pucora"))
 	}
 	if w.Result().StatusCode != http.StatusOK {
 		t.Error("Unexpected status code:", w.Result().StatusCode)
@@ -492,8 +492,8 @@ func TestRender_noop_nilBody(t *testing.T) {
 	if w.Result().Header.Get("Content-Type") != expectedHeader {
 		t.Error("Content-Type error:", w.Result().Header.Get("Content-Type"))
 	}
-	if w.Result().Header.Get("X-Velonetics") != "Version undefined" {
-		t.Error("X-Velonetics error:", w.Result().Header.Get("X-Velonetics"))
+	if w.Result().Header.Get("X-Pucora") != "Version undefined" {
+		t.Error("X-Pucora error:", w.Result().Header.Get("X-Pucora"))
 	}
 	if w.Result().StatusCode != http.StatusOK {
 		t.Error("Unexpected status code:", w.Result().StatusCode)
@@ -527,8 +527,8 @@ func TestRender_noop_nilResponse(t *testing.T) {
 	if w.Result().Header.Get("Content-Type") != "" {
 		t.Error("Content-Type error:", w.Result().Header.Get("Content-Type"))
 	}
-	if w.Result().Header.Get("X-Velonetics") != "Version undefined" {
-		t.Error("X-Velonetics error:", w.Result().Header.Get("X-Velonetics"))
+	if w.Result().Header.Get("X-Pucora") != "Version undefined" {
+		t.Error("X-Pucora error:", w.Result().Header.Get("X-Pucora"))
 	}
 	if w.Result().StatusCode != http.StatusInternalServerError {
 		t.Error("Unexpected status code:", w.Result().StatusCode)

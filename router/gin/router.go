@@ -14,12 +14,12 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/velonetics/lura/v2/config"
-	"github.com/velonetics/lura/v2/core"
-	"github.com/velonetics/lura/v2/logging"
-	"github.com/velonetics/lura/v2/proxy"
-	"github.com/velonetics/lura/v2/router"
-	"github.com/velonetics/lura/v2/transport/http/server"
+	"github.com/pucora/lura/v2/config"
+	"github.com/pucora/lura/v2/core"
+	"github.com/pucora/lura/v2/logging"
+	"github.com/pucora/lura/v2/proxy"
+	"github.com/pucora/lura/v2/router"
+	"github.com/pucora/lura/v2/transport/http/server"
 )
 
 const logPrefix = "[SERVICE: Gin]"
@@ -122,7 +122,7 @@ func (r ginRouter) registerEndpointsAndMiddlewares(cfg config.ServiceConfig) {
 	endpointGroup := r.cfg.Engine.Group("/")
 	endpointGroup.Use(r.cfg.Middlewares...)
 
-	r.registerVeloneticsEndpoints(endpointGroup, cfg)
+	r.registerPucoraEndpoints(endpointGroup, cfg)
 
 	if opts, ok := cfg.ExtraConfig[Namespace].(map[string]interface{}); ok {
 		if v, ok := opts["auto_options"].(bool); ok && v {
@@ -140,7 +140,7 @@ func isWebSocketEndpoint(e *config.EndpointConfig) bool {
 	return ok
 }
 
-func (r ginRouter) registerVeloneticsEndpoints(rg *gin.RouterGroup, cfg config.ServiceConfig) {
+func (r ginRouter) registerPucoraEndpoints(rg *gin.RouterGroup, cfg config.ServiceConfig) {
 	proxyBuildFailedHandler := func(c *gin.Context) {
 		c.AbortWithStatus(http.StatusInternalServerError)
 	}
@@ -159,16 +159,16 @@ func (r ginRouter) registerVeloneticsEndpoints(rg *gin.RouterGroup, cfg config.S
 			proxyStack, err = r.cfg.ProxyFactory.New(c)
 			if err != nil {
 				r.cfg.Logger.Error(logPrefix, "Calling the ProxyFactory", err.Error())
-				r.registerVeloneticsEndpoint(rg, method, c,
+				r.registerPucoraEndpoint(rg, method, c,
 					proxyBuildFailedHandler, 1)
 				continue
 			}
 		}
-		r.registerVeloneticsEndpoint(rg, method, c, r.cfg.HandlerFactory(c, proxyStack), len(c.Backend))
+		r.registerPucoraEndpoint(rg, method, c, r.cfg.HandlerFactory(c, proxyStack), len(c.Backend))
 	}
 }
 
-func (r ginRouter) registerVeloneticsEndpoint(rg *gin.RouterGroup, method string, e *config.EndpointConfig, h gin.HandlerFunc, total int) {
+func (r ginRouter) registerPucoraEndpoint(rg *gin.RouterGroup, method string, e *config.EndpointConfig, h gin.HandlerFunc, total int) {
 	method = strings.ToTitle(method)
 	path := e.Endpoint
 	if method != http.MethodGet && total > 1 {
@@ -215,7 +215,7 @@ func (r ginRouter) registerOptionEndpoints(rg *gin.RouterGroup) {
 
 		rg.OPTIONS(path, func(c *gin.Context) {
 			c.Header("Allow", allowed)
-			c.Header(core.VeloneticsHeaderName, core.VeloneticsHeaderValue)
+			c.Header(core.PucoraHeaderName, core.PucoraHeaderValue)
 		})
 	}
 }
