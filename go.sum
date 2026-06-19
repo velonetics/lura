@@ -53,6 +53,8 @@ github.com/pelletier/go-toml/v2 v2.2.4 h1:mye9XuhQ6gvn5h28+VilKrrPoQVanw5PMw/TB0
 github.com/pelletier/go-toml/v2 v2.2.4/go.mod h1:2gIqNv+qfxSVS7cM2xJQKtLSTLUE9V8t9Stt+h56mCY=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
+github.com/pucora/flatmap v1.0.1 h1:SdX1G8ZiCGj6Gk3UGs6VoAQF9VjwhCqcDbuCoJO/ij8=
+github.com/pucora/flatmap v1.0.1/go.mod h1:WD5c42qlY3Ap6V7CXg+F2+Z1xmXDqxNKCHBrzuT64Ls=
 github.com/quic-go/qpack v0.6.0 h1:g7W+BMYynC1LbYLSqRt8PBg5Tgwxn214ZZR34VIOjz8=
 github.com/quic-go/qpack v0.6.0/go.mod h1:lUpLKChi8njB4ty2bFLX2x4gzDqXwUpaO1DP9qMDZII=
 github.com/quic-go/quic-go v0.59.0 h1:OLJkp1Mlm/aS7dpKgTc6cnpynnD2Xg7C1pwL6vy/SAw=
@@ -76,8 +78,6 @@ github.com/urfave/negroni/v2 v2.0.2 h1:27gJcVxYJ2a/ytEoCHoJ7ybvyhymV4cAhGuMxkyCs
 github.com/urfave/negroni/v2 v2.0.2/go.mod h1:SjdApKzYrObukpN/NnlejbQiZWIUjfDFzQltScGYigI=
 github.com/valyala/fastrand v1.1.0 h1:f+5HkLW4rsgzdNoleUOB69hyT9IlD2ZQh9GyDMfb5G8=
 github.com/valyala/fastrand v1.1.0/go.mod h1:HWqCzkrkg6QXT8V2EXWvXCoow7vLwOFN002oeRzjapQ=
-github.com/pucora/flatmap v1.0.0 h1:4CPSUHymeYkQ+CQsLMK6dckO8m/R2cyCAmEI1wCBsV8=
-github.com/pucora/flatmap v1.0.0/go.mod h1:sdiHe7b6GlhtUGXOEWMlYB4uLPUCbEQmPy7PV8xmHPo=
 go.mongodb.org/mongo-driver/v2 v2.5.0 h1:yXUhImUjjAInNcpTcAlPHiT7bIXhshCTL3jVBkF3xaE=
 go.mongodb.org/mongo-driver/v2 v2.5.0/go.mod h1:yOI9kBsufol30iFsl1slpdq1I0eHPzybRWdyYUs8K/0=
 go.uber.org/mock v0.6.0 h1:hyF9dfmbgIX5EfOdasqLsWD6xqpNZlXblLB/Dbnwv3Y=

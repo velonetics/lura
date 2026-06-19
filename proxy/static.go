@@ -6,6 +6,8 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"os"
+	"time"
 
 	"github.com/pucora/lura/v2/config"
 	"github.com/pucora/lura/v2/logging"
@@ -14,6 +16,20 @@ import (
 // NewStaticMiddleware creates proxy middleware for adding static values to the processed responses
 func NewStaticMiddleware(logger logging.Logger, endpointConfig *config.EndpointConfig) Middleware {
 	cfg, ok := getStaticMiddlewareCfg(endpointConfig.ExtraConfig)
+	// #region agent log
+	if endpointConfig.Endpoint == "/static" || endpointConfig.Endpoint == "/token" {
+		keys := make([]string, 0, len(endpointConfig.ExtraConfig))
+		for k := range endpointConfig.ExtraConfig {
+			keys = append(keys, k)
+		}
+		agentDebugLog("static.go:NewStaticMiddleware", "static middleware lookup", "A", map[string]interface{}{
+			"endpoint":        endpointConfig.Endpoint,
+			"namespace":       Namespace,
+			"staticCfgFound":  ok,
+			"extraConfigKeys": keys,
+		})
+	}
+	// #endregion
 	if !ok {
 		return emptyMiddlewareFallback(logger)
 	}
@@ -124,3 +140,27 @@ func staticIfCompleteMatch(r *Response, err error) bool {
 	return err == nil && r != nil && r.IsComplete
 }
 func staticIfIncompleteMatch(r *Response, _ error) bool { return r == nil || !r.IsComplete }
+
+// #region agent log
+func agentDebugLog(location, message, hypothesisID string, data map[string]interface{}) {
+	payload := map[string]interface{}{
+		"sessionId":    "d837bb",
+		"timestamp":    time.Now().UnixMilli(),
+		"location":     location,
+		"message":      message,
+		"hypothesisId": hypothesisID,
+		"data":         data,
+	}
+	b, err := json.Marshal(payload)
+	if err != nil {
+		return
+	}
+	f, err := os.OpenFile("/Users/niteesh.chaudhary/Documents/GitHub/velonetics/.cursor/debug-d837bb.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0o644)
+	if err != nil {
+		return
+	}
+	_, _ = f.Write(append(b, '\n'))
+	_ = f.Close()
+}
+
+// #endregion

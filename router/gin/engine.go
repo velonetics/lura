@@ -21,7 +21,7 @@ import (
 	"github.com/pucora/lura/v2/transport/http/server"
 )
 
-const Namespace = "github_com/luraproject/lura/router/gin"
+const Namespace = "github_com/pucora/lura/v2/router/gin"
 
 type EngineOptions struct {
 	Logger    logging.Logger

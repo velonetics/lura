@@ -5,10 +5,13 @@ package client
 import (
 	"bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
 	"net/http"
+	"os"
+	"time"
 
 	"github.com/pucora/lura/v2/config"
 )
@@ -51,6 +54,20 @@ type HTTPStatusHandler func(context.Context, *http.Response) (*http.Response, er
 // DefaultHTTPStatusHandler
 func GetHTTPStatusHandler(remote *config.Backend) HTTPStatusHandler {
 	errPrefix := fmt.Sprintf("[%s %s]:", remote.Method, remote.URLPattern)
+	// #region agent log
+	if remote.URLPattern == "/unknown" {
+		keys := make([]string, 0, len(remote.ExtraConfig))
+		for k := range remote.ExtraConfig {
+			keys = append(keys, k)
+		}
+		agentStatusDebugLog("status.go:GetHTTPStatusHandler", "backend http status handler lookup", "E", map[string]interface{}{
+			"urlPattern":      remote.URLPattern,
+			"namespace":       Namespace,
+			"hasNamespaceCfg": remote.ExtraConfig[Namespace] != nil,
+			"extraConfigKeys": keys,
+		})
+	}
+	// #endregion
 	if e, ok := remote.ExtraConfig[Namespace]; ok {
 		if m, ok := e.(map[string]interface{}); ok {
 			if v, ok := m["return_error_details"]; ok {
@@ -187,3 +204,27 @@ type NamedHTTPResponseError struct {
 func (r NamedHTTPResponseError) Name() string {
 	return r.name
 }
+
+// #region agent log
+func agentStatusDebugLog(location, message, hypothesisID string, data map[string]interface{}) {
+	payload := map[string]interface{}{
+		"sessionId":    "d837bb",
+		"timestamp":    time.Now().UnixMilli(),
+		"location":     location,
+		"message":      message,
+		"hypothesisId": hypothesisID,
+		"data":         data,
+	}
+	b, err := json.Marshal(payload)
+	if err != nil {
+		return
+	}
+	f, err := os.OpenFile("/Users/niteesh.chaudhary/Documents/GitHub/velonetics/.cursor/debug-d837bb.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0o644)
+	if err != nil {
+		return
+	}
+	_, _ = f.Write(append(b, '\n'))
+	_ = f.Close()
+}
+
+// #endregion

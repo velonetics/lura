@@ -14,7 +14,7 @@ require (
 )
 
 require (
-	github.com/pucora/flatmap v1.0.0
+	github.com/pucora/flatmap v1.0.1
 	golang.org/x/net v0.51.0
 	golang.org/x/sync v0.19.0
 	golang.org/x/text v0.34.0
