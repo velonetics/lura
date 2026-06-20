@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"path/filepath"
 	"time"
 
 	"github.com/pucora/lura/v2/config"
@@ -155,7 +156,23 @@ func agentDebugLog(location, message, hypothesisID string, data map[string]inter
 	if err != nil {
 		return
 	}
-	f, err := os.OpenFile("/Users/niteesh.chaudhary/Documents/GitHub/velonetics/.cursor/debug-d837bb.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0o644)
+	logPath := ".cursor/debug-d837bb.log"
+	if cwd, err := os.Getwd(); err == nil {
+		dir := cwd
+		for {
+			if fi, err := os.Stat(filepath.Join(dir, ".git")); err == nil && fi.IsDir() {
+				logPath = filepath.Join(dir, ".cursor", "debug-d837bb.log")
+				break
+			}
+			parent := filepath.Dir(dir)
+			if parent == dir {
+				break
+			}
+			dir = parent
+		}
+	}
+	_ = os.MkdirAll(filepath.Dir(logPath), 0755)
+	f, err := os.OpenFile(logPath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0o644)
 	if err != nil {
 		return
 	}
