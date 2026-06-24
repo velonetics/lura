@@ -305,6 +305,28 @@ type Backend struct {
 	ParentEndpointMethod string `json:"-" mapstructure:"-"`
 }
 
+const (
+	ConditionalStrategyHeader   = "header"
+	ConditionalStrategyPolicy   = "policy"
+	ConditionalStrategyFallback = "fallback"
+)
+
+type BackendConditional struct {
+	Strategy string `mapstructure:"strategy"`
+	Name     string `mapstructure:"name"`
+	Value    string `mapstructure:"value"`
+}
+
+func (bc BackendConditional) IsValid() bool {
+	return bc.Strategy == ConditionalStrategyHeader ||
+		bc.Strategy == ConditionalStrategyPolicy ||
+		bc.Strategy == ConditionalStrategyFallback
+}
+
+func (bc BackendConditional) IsFallback() bool {
+	return bc.Strategy == ConditionalStrategyFallback
+}
+
 // Plugin contains the config required by the plugin module
 type Plugin struct {
 	Folder  string `mapstructure:"folder"`
